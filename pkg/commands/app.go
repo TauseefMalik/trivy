@@ -219,6 +219,17 @@ var (
 		EnvVars: []string{"TRIVY_SKIP_DIRS"},
 	}
 
+	awsRoleArn = cli.StringFlag{
+		Name:    "role-arn",
+		Usage:   "for authentication",
+		EnvVars: []string{"TRIVY_AWS_ROLE_ARN"},
+	}
+	awsExternalId = cli.StringFlag{
+		Name:    "external-id",
+		Usage:   "for authentication",
+		EnvVars: []string{"TRIVY_AWS_EXTERNAL_ID"},
+	}
+
 	globalFlags = []cli.Flag{
 		&quietFlag,
 		&debugFlag,
@@ -249,6 +260,8 @@ var (
 		&skipFiles,
 		&skipDirs,
 		&cacheBackendFlag,
+		&awsRoleArn,
+		&awsExternalId,
 	}
 
 	// deprecated options
@@ -457,6 +470,8 @@ func NewRepositoryCommand() *cli.Command {
 			&listAllPackages,
 			&skipFiles,
 			&skipDirs,
+			&awsRoleArn,
+			&awsExternalId,
 		},
 	}
 }
@@ -488,6 +503,8 @@ func NewClientCommand() *cli.Command {
 			// original flags
 			&token,
 			&tokenHeader,
+			&awsRoleArn,
+			&awsExternalId,
 			&cli.StringFlag{
 				Name:    "remote",
 				Value:   "http://localhost:4954",
